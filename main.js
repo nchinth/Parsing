@@ -24,8 +24,9 @@ var scanner =
 		{
 			var char = String.fromCharCode(buffer.readUInt8(scanner.bufPosition++));
 			var token = scanner.getToken(char,buffer);
-			scanner.tokens.push( token );
-
+                        if(tokens.indexOf(token)!=-1){
+			  scanner.tokens.push( token );
+                        }
 			//buffer.slice(scanner.bufPosition);
 		}
 		return scanner.tokens;
@@ -33,6 +34,7 @@ var scanner =
 
 	getToken: function (c,buffer) 
 	{
+
 		if( c == '{' )
 			return "LBRACE";
 
@@ -40,8 +42,28 @@ var scanner =
 			return "RBRACE";
 
 		if( c == "\"")
-			return "QUOTE"
+			return "QUOTE";
 
+                if(c == '[' )
+                          return "LBRACKET";
+
+                if(c == ']')
+                         return "RBRACKET";
+
+                if(c == ':')
+                         return "COLON";
+
+                if(c == ' ')
+                         return "WHITESPACE";
+
+                if(c == "\n")
+                         return "NEWLINE";
+                
+                if(c == "\t")
+                         return "TABS";
+
+                if(c == ",")
+                         return "COMMA";
 		// Task match []
 
 		// Task consume: White space
